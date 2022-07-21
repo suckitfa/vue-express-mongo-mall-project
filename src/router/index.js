@@ -12,15 +12,20 @@ export default new Router({
     {
       path: '/',
       name: 'HelloWorld',
-      component: HelloWorld
+      components: {
+        default:GoodsList,
+        title:Title,
+        img:Image,
+      }
     },{
       path:"/cart",
       name:"cart",
       component:Cart
-    },{
-      path:"/goods",
-      name:"GoodsList",
-      component:GoodsList,
+     },
+    //  {
+    //   path:"/goods",
+    //   name:"GoodsList",
+    //   component:GoodsList,
       // 嵌套路由
       // children: [{
       //   // 这里不要加 / 这样会变成一级路由
@@ -32,6 +37,6 @@ export default new Router({
       //   name:"image",
       //   component:Image
       // }]
-    },
+    // },
   ]
 })
