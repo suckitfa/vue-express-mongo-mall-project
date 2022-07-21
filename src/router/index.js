@@ -4,6 +4,7 @@ import HelloWorld from '@/components/HelloWorld'
 import GoodsList from '@/views/GoodsList'
 import Title from '@/views/Title'
 import Image from '@/views/Image'
+import Cart from '@/views/Cart'
 Vue.use(Router)
 
 export default new Router({
@@ -12,6 +13,10 @@ export default new Router({
       path: '/',
       name: 'HelloWorld',
       component: HelloWorld
+    },{
+      path:"/cart",
+      name:"Cart",
+      component:Cart
     },{
       path:"/goods",
       name:"GoodsList",
