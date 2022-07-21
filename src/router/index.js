@@ -7,14 +7,13 @@ import Image from '@/views/Image'
 Vue.use(Router)
 
 export default new Router({
-  mode:"history",
   routes: [
     {
       path: '/',
       name: 'HelloWorld',
       component: HelloWorld
     },{
-      path:"/goods/:goodsId/admin/:name",
+      path:"/goods",
       name:"GoodsList",
       component:GoodsList,
       // 嵌套路由
@@ -24,7 +23,7 @@ export default new Router({
         name:"title",
         component:Title
       },{
-        path:"image",
+        path:"img",
         name:"image",
         component:Image
       }]
