@@ -6,7 +6,7 @@
      <router-link to="/goods/title">显示商品的标题</router-link>
      <router-link to="/goods/img">显示商品的图片</router-link>
      <router-view></router-view>
-     <router-link to="/cart">跳转到购物车</router-link>
+     <router-link v-bind:to="{name:'cart'}">跳转到购物车</router-link>
      <div>
        <button @click="toCart">购物车</button>
      </div>

@@ -15,23 +15,23 @@ export default new Router({
       component: HelloWorld
     },{
       path:"/cart",
-      name:"Cart",
+      name:"cart",
       component:Cart
     },{
       path:"/goods",
       name:"GoodsList",
       component:GoodsList,
       // 嵌套路由
-      children: [{
-        // 这里不要加 / 这样会变成一级路由
-        path:"title",
-        name:"title",
-        component:Title
-      },{
-        path:"img",
-        name:"image",
-        component:Image
-      }]
+      // children: [{
+      //   // 这里不要加 / 这样会变成一级路由
+      //   path:"title",
+      //   name:"title",
+      //   component:Title
+      // },{
+      //   path:"img",
+      //   name:"image",
+      //   component:Image
+      // }]
     },
   ]
 })
