@@ -107,6 +107,7 @@ import './../assets/css/checkout.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 export default {
+  name:"GoodsList",
   components: {
     Header,
     Footer
