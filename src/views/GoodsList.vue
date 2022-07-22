@@ -13,6 +13,8 @@
    </div>
 </template>
 <script>
+import './../assets/css/base.css'
+import './../assets/css/product.css'
 export default {
     name:"GoodsList",
     mounted() {
