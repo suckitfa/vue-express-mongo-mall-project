@@ -96,7 +96,7 @@
           </div>
         </div>
       </div>
-      <Footer />
+      <NavFooter />
     </div>
 </template>
 <script>
@@ -104,13 +104,13 @@ import './../assets/css/base.css'
 import './../assets/css/product.css'
 import './../assets/css/login.css'
 import './../assets/css/checkout.css'
-import NavHeader from '@/components/Header'
-import Footer from '@/components/Footer'
+import NavHeader from '@/components/NavHeader'
+import NavFooter from '@/components/NavFooter'
 export default {
   name:"GoodsList",
   components: {
     NavHeader,
-    Footer
+    NavFooter
   },
     name:"GoodsList",
     mounted() {
