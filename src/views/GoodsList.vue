@@ -1,6 +1,6 @@
 <template>
    <div>
-      <Header />
+      <NavHeader />
       <div class="nav-breadcrumb-wrap">
         <div class="container">
           <nav class="nav-breadcrumb">
@@ -104,12 +104,12 @@ import './../assets/css/base.css'
 import './../assets/css/product.css'
 import './../assets/css/login.css'
 import './../assets/css/checkout.css'
-import Header from '@/components/Header'
+import NavHeader from '@/components/Header'
 import Footer from '@/components/Footer'
 export default {
   name:"GoodsList",
   components: {
-    Header,
+    NavHeader,
     Footer
   },
     name:"GoodsList",
