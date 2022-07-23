@@ -93,8 +93,6 @@ export default {
             productImage: baseURL+ item.productImage
           }
         })
-        // console.log(res)
-        // // 更新data数据
       })
     }
   },
