@@ -15,25 +15,35 @@
             <span class="sortby">Sort by:</span>
             <a href="javascript:void(0)" class="default cur">Default</a>
             <a href="javascript:void(0)" class="price">Price <svg class="icon icon-arrow-short"><use xlink:href="#icon-arrow-short"></use></svg></a>
-            <a href="javascript:void(0)" class="filterby stopPop">Filter by</a>
+            <a href="javascript:void(0)" class="filterby stopPop" @click="showFilterPop">Filter by</a>
           </div>
           <div class="accessory-result">
             <!-- filter -->
             <div class="filter stopPop" id="filter">
               <dl class="filter-price">
                 <dt>Price:</dt>
-                <dd><a href="javascript:void(0)">All</a></dd>
-                <dd>
-                  <a href="javascript:void(0)">0 - 100</a>
+                <dd 
+                  :class="{'cur': priceChecked === 'all'}"
+                  @click="priceChecked = 'all'"
+                >
+                  <a 
+                    href="javascript:void(0)"
+                    :class="{'cur': priceChecked === 'all'}"
+                  >All
+                  </a>
                 </dd>
-                <dd>
-                  <a href="javascript:void(0)">100 - 500</a>
-                </dd>
-                <dd>
-                  <a href="javascript:void(0)">500 - 1000</a>
-                </dd>
-                <dd>
-                  <a href="javascript:void(0)">1000 - 2000</a>
+                <dd 
+                  v-for="(price,index) in priceFilter" 
+                  :key="price.startPrice" 
+                  :class="{'cur': priceChecked === index}"
+                  @click="priceChecked = index"
+                >
+                  <a 
+                    href="javascript:void(0)" 
+                    :class="{'cur':priceChecked == index}"
+                  >
+                    {{price.startPrice}} - {{price.endPrice}}
+                  </a>
                 </dd>
               </dl>
             </div>
@@ -82,6 +92,32 @@ export default {
   mounted() {
     this.getGoodsListData()
   },
+  data() {
+    return {
+      goodsList:[],
+      priceChecked:'all',
+      priceFilter:[
+        {
+          startPrice:"0.00",
+          endPrice:"100.00"
+        },
+        {
+          startPrice:"100.00",
+          endPrice:"500.00"
+        },
+        {
+          startPrice:"500.00",
+          endPrice:"1000.00"
+        },
+        {
+          startPrice:"1000.00",
+          endPrice:"2000.00"
+        },
+      ],
+      filterBy:false,
+      overLayFlag:false
+    }
+  },
   methods: {
     getGoodsListData() {
       getGoodsList().then(res => {
@@ -94,11 +130,9 @@ export default {
           }
         })
       })
-    }
-  },
-  data() {
-    return {
-      goodsList:[]
+    },
+    showFilterPop() {
+
     }
   }
 }
