@@ -60,7 +60,7 @@
                 <ul>
                   <li v-for="product in goodsList" :key="product.productId">
                     <div class="pic">
-                      <a href="#"><img :src="product.productImage" alt=""></a>
+                      <a href="#"><img v-lazy="product.productImage" alt=""></a>
                     </div>
                     <div class="main">
                       <div class="name">{{product.productName}}</div>
@@ -154,17 +154,3 @@ export default {
   }
 }
 </script>
-
-<style>
-  button {
-    margin-top: 20px;
-    padding:5px;
-    color:white;
-    background-color: green;
-    border: none;
-  }
-  a {
-    color:green;
-    text-decoration:none;
-  }
-</style>
