@@ -15,11 +15,17 @@
             <span class="sortby">Sort by:</span>
             <a href="javascript:void(0)" class="default cur">Default</a>
             <a href="javascript:void(0)" class="price">Price <svg class="icon icon-arrow-short"><use xlink:href="#icon-arrow-short"></use></svg></a>
-            <a href="javascript:void(0)" class="filterby stopPop" @click="showFilterPop">Filter by</a>
+            <!-- 小屏幕控制价格过滤表显示与隐藏 -->
+            <a 
+              href="javascript:void(0)" 
+              class="filterby stopPop" 
+              @click="showFilterPop"
+            >Filter by</a>
+
           </div>
           <div class="accessory-result">
             <!-- filter -->
-            <div class="filter stopPop" id="filter">
+            <div class="filter stopPop " :class="{'filterby-show':filterBy}" id="filter">
               <dl class="filter-price">
                 <dt>Price:</dt>
                 <dd 
@@ -36,7 +42,7 @@
                   v-for="(price,index) in priceFilter" 
                   :key="price.startPrice" 
                   :class="{'cur': priceChecked === index}"
-                  @click="priceChecked = index"
+                  @click="setPriceFilter(index)"
                 >
                   <a 
                     href="javascript:void(0)" 
@@ -70,6 +76,8 @@
           </div>
         </div>
       </div>
+      <!-- 遮罩层 -->
+      <div class="md-overlay" v-show="overLayFlag" @click="closeFilterPop"></div>
       <NavFooter />
     </div>
 </template>
@@ -132,7 +140,16 @@ export default {
       })
     },
     showFilterPop() {
-
+      this.filterBy = true;
+      this.overLayFlag = true;  
+    },
+    closeFilterPop() {
+      this.overLayFlag = false;
+      this.filterBy = false;
+    },
+    setPriceFilter(index) {
+      this.priceChecked = index
+      this.closeFilterPop()
     }
   }
 }
