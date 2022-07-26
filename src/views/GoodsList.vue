@@ -81,13 +81,20 @@
                   </div>
                 </li>
               </ul>
+              <!-- 引入插件 -->
+
+              <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
+                加载中.....
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
     <!-- 遮罩层 -->
-    <div class="md-overlay" v-show="overLayFlag" @click="closeFilterPop"></div>
+    <div class="md-overlay" v-show="overLayFlag" @click="closeFilterPop">
+
+    </div>
     <NavFooter />
   </div>
 </template>
@@ -110,6 +117,7 @@ export default {
   data(){
     return {
       priceChecked:'all',
+      busy:true,
       overLayFlag:false,
       filterBy:false,
       sortFlag:false,
@@ -138,7 +146,7 @@ export default {
     this.getGoodsListData()
   },
   methods: {
-    getGoodsListData() {
+    getGoodsListData(flag) {
       let param = {
         page:this.page,
         pageSize:this.pageSize,
@@ -146,13 +154,25 @@ export default {
       }
       getGoodsList(param).then(res => {
         const resData = res.data;
-        const goods = resData.result.list;
-        this.goodsList =  goods.map(item => {
+        let goods = resData.result.list;
+        // 处理图片的路径
+        goods =  goods.map(item => {
           return {
             ...item,
             productImage: baseURL+ item.productImage
           }
-        })
+        });
+
+        if(flag) {
+          this.goodsList = this.goodsList.concat(goods);
+          if (goods.length === 0) {
+            this.busy = true;
+          } else {
+            this.busy = false;
+          }
+        } else {
+          this.goodsList = goods;
+        }
       })
     },
     showFilterPop() {
@@ -171,6 +191,16 @@ export default {
       this.sortFlag = !this.sortFlag;
       this.page = 1;
       this.getGoodsListData()
+    },
+    loadMore() {
+      this.busy = true;
+      setTimeout(() => {
+        for(let i = 0,j = 10; i < j; i++ ) {
+          this.page ++;
+          this.getGoodsListData(true)
+        }
+        this.busy = false;
+      },500)
     }
   }
 }
