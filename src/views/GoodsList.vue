@@ -1,96 +1,86 @@
 <template>
-   <div>
-      <NavHeader />
-      <NavBread />
-      <div class="accessory-result-page accessory-page">
-        <div class="container">
-          <div class="filter-nav">
-            <span class="sortby">Sort by:</span>
-            <a href="javascript:void(0)" class="default cur">Default</a>
-            <a href="javascript:void(0)" class="price">Price <svg class="icon icon-arrow-short"><use xlink:href="#icon-arrow-short"></use></svg></a>
-            <a href="javascript:void(0)" class="filterby stopPop">Filter by</a>
+  <div>
+    <NavHeader />
+    <NavBread />
+    <div class="accessory-result-page accessory-page">
+      <div class="container">
+        <div class="filter-nav">
+          <span class="sortby">Sort by:</span>
+          <a href="javascript:void(0)" class="default cur">Default</a>
+          <a href="javascript:void(0)" class="price"
+            >Price
+            <svg class="icon icon-arrow-short">
+              <use xlink:href="#icon-arrow-short"></use></svg
+          ></a>
+          <!-- 小屏幕控制价格过滤表显示与隐藏 -->
+          <a
+            href="javascript:void(0)"
+            class="filterby stopPop"
+            @click="showFilterPop"
+            >Filter by</a
+          >
+        </div>
+        <div class="accessory-result">
+          <!-- filter -->
+          <div
+            class="filter stopPop"
+            :class="{ 'filterby-show': filterBy }"
+            id="filter"
+          >
+            <dl class="filter-price">
+              <dt>Price:</dt>
+              <dd
+                :class="{ cur: priceChecked === 'all' }"
+                @click="priceChecked = 'all'"
+              >
+                <a
+                  href="javascript:void(0)"
+                  :class="{ cur: priceChecked === 'all' }"
+                  >All
+                </a>
+              </dd>
+              <dd
+                v-for="(price, index) in priceFilter"
+                :key="price.startPrice"
+                :class="{ cur: priceChecked === index }"
+                @click="setPriceFilter(index)"
+              >
+                <a
+                  href="javascript:void(0)"
+                  :class="{ cur: priceChecked == index }"
+                >
+                  {{ price.startPrice }} - {{ price.endPrice }}
+                </a>
+              </dd>
+            </dl>
           </div>
-          <div class="accessory-result">
-            <!-- filter -->
-            <div class="filter stopPop" id="filter">
-              <dl class="filter-price">
-                <dt>Price:</dt>
-                <dd><a href="javascript:void(0)">All</a></dd>
-                <dd>
-                  <a href="javascript:void(0)">0 - 100</a>
-                </dd>
-                <dd>
-                  <a href="javascript:void(0)">100 - 500</a>
-                </dd>
-                <dd>
-                  <a href="javascript:void(0)">500 - 1000</a>
-                </dd>
-                <dd>
-                  <a href="javascript:void(0)">1000 - 2000</a>
-                </dd>
-              </dl>
-            </div>
 
-            <!-- search result accessories list -->
-            <div class="accessory-list-wrap">
-              <div class="accessory-list col-4">
-                <ul>
-                  <li>
-                    <div class="pic">
-                      <a href="#"><img src="static/1.jpg" alt=""></a>
+          <!-- search result accessories list -->
+          <div class="accessory-list-wrap">
+            <div class="accessory-list col-4">
+              <ul>
+                <li v-for="product in goodsList" :key="product.productId">
+                  <div class="pic">
+                    <a href="#"><img v-lazy="product.productImage" alt="" /></a>
+                  </div>
+                  <div class="main">
+                    <div class="name">{{ product.productName }}</div>
+                    <div class="price">{{ product.productPrice }}</div>
+                    <div class="btn-area">
+                      <a href="javascript:;" class="btn btn--m">加入购物车</a>
                     </div>
-                    <div class="main">
-                      <div class="name">XX</div>
-                      <div class="price">999</div>
-                      <div class="btn-area">
-                        <a href="javascript:;" class="btn btn--m">加入购物车</a>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="pic">
-                      <a href="#"><img src="static/2.jpg" alt=""></a>
-                    </div>
-                    <div class="main">
-                      <div class="name">XX</div>
-                      <div class="price">1000</div>
-                      <div class="btn-area">
-                        <a href="javascript:;" class="btn btn--m">加入购物车</a>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="pic">
-                      <a href="#"><img src="static/3.jpg" alt=""></a>
-                    </div>
-                    <div class="main">
-                      <div class="name">XX</div>
-                      <div class="price">500</div>
-                      <div class="btn-area">
-                        <a href="javascript:;" class="btn btn--m">加入购物车</a>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="pic">
-                      <a href="#"><img src="static/4.jpg" alt=""></a>
-                    </div>
-                    <div class="main">
-                      <div class="name">XX</div>
-                      <div class="price">2499</div>
-                      <div class="btn-area">
-                        <a href="javascript:;" class="btn btn--m">加入购物车</a>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
+                  </div>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
       </div>
-      <NavFooter />
     </div>
+    <!-- 遮罩层 -->
+    <div class="md-overlay" v-show="overLayFlag" @click="closeFilterPop"></div>
+    <NavFooter />
+  </div>
 </template>
 <script>
 import './../assets/css/base.css'
@@ -106,31 +96,35 @@ export default {
     NavHeader,
     NavFooter,
     NavBread
-},
-    name:"GoodsList",
-    mounted() {
-        console.log(this.$route.params)
+  },
+  mounted() {
+    console.log(this.$route.params)
+  },
+  methods: {
+    getGoodsListData() {
+      getGoodsList().then(res => {
+        const resData = res.data;
+        const goods = resData.result;
+        this.goodsList =  goods.map(item => {
+          return {
+            ...item,
+            productImage: baseURL+ item.productImage
+          }
+        })
+      })
     },
-    methods: {
-      toCart() {
-        // this.$router.push('/cart')
-        // this.$router.push({path:"/cart?goodsId=123"})
-        this.$router.go(-2)
-      }
+    showFilterPop() {
+      this.filterBy = true;
+      this.overLayFlag = true;  
+    },
+    closeFilterPop() {
+      this.overLayFlag = false;
+      this.filterBy = false;
+    },
+    setPriceFilter(index) {
+      this.priceChecked = index
+      this.closeFilterPop()
     }
+  }
 }
 </script>
-
-<style>
-  button {
-    margin-top: 20px;
-    padding:5px;
-    color:white;
-    background-color: green;
-    border: none;
-  }
-  a {
-    color:green;
-    text-decoration:none;
-  }
-</style>
