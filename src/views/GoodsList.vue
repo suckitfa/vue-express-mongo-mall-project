@@ -1,14 +1,7 @@
 <template>
    <div>
       <NavHeader />
-      <div class="nav-breadcrumb-wrap">
-        <div class="container">
-          <nav class="nav-breadcrumb">
-            <a href="/">Home</a>
-            <span>Goods</span>
-          </nav>
-        </div>
-      </div>
+      <NavBread />
       <div class="accessory-result-page accessory-page">
         <div class="container">
           <div class="filter-nav">
@@ -106,12 +99,14 @@ import './../assets/css/login.css'
 import './../assets/css/checkout.css'
 import NavHeader from '@/components/NavHeader'
 import NavFooter from '@/components/NavFooter'
+import NavBread from '../components/NavBread.vue'
 export default {
   name:"GoodsList",
   components: {
     NavHeader,
-    NavFooter
-  },
+    NavFooter,
+    NavBread
+},
     name:"GoodsList",
     mounted() {
         console.log(this.$route.params)

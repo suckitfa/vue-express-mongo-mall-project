@@ -1,11 +1,14 @@
 <template>
-    <div class="nav-breadcrumb-wrap">
+     <div class="nav-breadcrumb-wrap">
         <div class="container">
+          <nav class="nav-breadcrumb">
             <a href="/">Home</a>
-            <!-- 使用插槽分发内容 -->
-            <slot></slot>
+            <!-- <span>Goods</span>
+             -->
+             <slot></slot>
+          </nav>
         </div>
-    </div>
+      </div>
 </template>
 <script>
 </script>
