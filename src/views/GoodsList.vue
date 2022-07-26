@@ -131,13 +131,12 @@ export default {
   },
   mounted() {
     this.getGoodsListData()
-    console.log(this.goodsList)
   },
   methods: {
     getGoodsListData() {
       getGoodsList().then(res => {
         const resData = res.data;
-        const goods = resData.result;
+        const goods = resData.result.list;
         this.goodsList =  goods.map(item => {
           return {
             ...item,
