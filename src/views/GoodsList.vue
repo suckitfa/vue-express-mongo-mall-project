@@ -14,7 +14,9 @@
         <div class="filter-nav">
           <span class="sortby">Sort by:</span>
           <a href="javascript:void(0)" class="default cur">Default</a>
-          <a href="javascript:void(0)" class="price"
+          <a 
+            @click="sortGoods"
+            class="price"
             >Price
             <svg class="icon icon-arrow-short">
               <use xlink:href="#icon-arrow-short"></use></svg
@@ -72,7 +74,7 @@
                   </div>
                   <div class="main">
                     <div class="name">{{ product.productName }}</div>
-                    <div class="price">{{ product.productPrice }}</div>
+                    <div class="price">{{ product.salePrice }}</div>
                     <div class="btn-area">
                       <a href="javascript:;" class="btn btn--m">加入购物车</a>
                     </div>
@@ -110,6 +112,9 @@ export default {
       priceChecked:'all',
       overLayFlag:false,
       filterBy:false,
+      sortFlag:false,
+      page:1,
+      pageSize:8,
       goodsList:[],
       priceFilter:[{
         startPrice:0,
@@ -134,7 +139,12 @@ export default {
   },
   methods: {
     getGoodsListData() {
-      getGoodsList().then(res => {
+      let param = {
+        page:this.page,
+        pageSize:this.pageSize,
+        sort:this.sortFlag === true ? 1 : -1
+      }
+      getGoodsList(param).then(res => {
         const resData = res.data;
         const goods = resData.result.list;
         this.goodsList =  goods.map(item => {
@@ -156,6 +166,11 @@ export default {
     setPriceFilter(index) {
       this.priceChecked = index
       this.closeFilterPop()
+    },
+    sortGoods() {
+      this.sortFlag = !this.sortFlag;
+      this.page = 1;
+      this.getGoodsListData()
     }
   }
 }

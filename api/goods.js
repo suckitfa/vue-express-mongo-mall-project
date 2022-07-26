@@ -1,8 +1,10 @@
 import {myAxios} from ".";
 
-export function getGoodsList(paramsList) {
+export function getGoodsList(params) {
+    console.log(params)
     return myAxios({
         url:"/goods",
-        methods: 'GET'
+        methods: 'GET',
+        params
     })
 }

@@ -7,6 +7,11 @@
   resolved "https://registry.npmmirror.com/@babel/parser/-/parser-7.18.9.tgz#f2dde0c682ccc264a9a8595efd030a5cc8fd2539"
   integrity sha512-9uJveS9eY9DJ0t64YbIBZICtJy8a5QrDEVdiLCG97fVLpDTpGX7t8mMSb6OWw6Lrnjqj4O8zwjELX3dhoMgiBg==
 
+"@popperjs/core@^2.9.2":
+  version "2.11.5"
+  resolved "https://registry.npmmirror.com/@popperjs/core/-/core-2.11.5.tgz#db5a11bf66bdab39569719555b0f76e138d7bd64"
+  integrity sha512-9X2obfABZuDVLCgPK9aX0a/x4jaOEweTTWE2+9sr0Qqqevj2Uv5XorvusThmc9XGYpS9yI+fhh8RTafBtGposw==
+
 "@types/node@*":
   version "18.0.6"
   resolved "https://registry.npmmirror.com/@types/node/-/node-18.0.6.tgz#0ba49ac517ad69abe7a1508bc9b3a5483df9d5d7"
@@ -29,6 +34,23 @@
   dependencies:
     "@types/node" "*"
     "@types/webidl-conversions" "*"
+
+"@vant/icons@^1.8.0":
+  version "1.8.0"
+  resolved "https://registry.npmmirror.com/@vant/icons/-/icons-1.8.0.tgz#36b13f2e628b533f6523a93a168cf02f07056674"
+  integrity sha512-sKfEUo2/CkQFuERxvkuF6mGQZDKu3IQdj5rV9Fm0weJXtchDSSQ+zt8qPCNUEhh9Y8shy5PzxbvAfOOkCwlCXg==
+
+"@vant/popperjs@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.npmmirror.com/@vant/popperjs/-/popperjs-1.2.1.tgz#1300c7c98573df577c21d3000712435edb8a877e"
+  integrity sha512-qzQlrPE4aOsBzfrktDVwzQy/QICCTKifmjrruhY58+Q2fobUYp/T9QINluIafzsD3VJwgP8+HFVLBsyDmy3VZQ==
+  dependencies:
+    "@popperjs/core" "^2.9.2"
+
+"@vant/use@^1.4.1":
+  version "1.4.1"
+  resolved "https://registry.npmmirror.com/@vant/use/-/use-1.4.1.tgz#22cdd81c6e2cf8dc746278608a3facbd4fdbcdc7"
+  integrity sha512-YonNN0SuJLEJuqdoMcVAJm2JUZWkHNrW81QzeF6FLyG5HFUGlmTM5Sby7gdS3Z/8UDMlkWRQpJxBWbmVzmUWxQ==
 
 "@vue/compiler-sfc@2.7.7":
   version "2.7.7"
@@ -5787,6 +5809,13 @@ qs@6.10.3:
   dependencies:
     side-channel "^1.0.4"
 
+qs@^6.11.0:
+  version "6.11.0"
+  resolved "https://registry.npmmirror.com/qs/-/qs-6.11.0.tgz#fd0d963446f7a65e1367e01abd85429453f0c37a"
+  integrity sha512-MvjoMCJwEarSbUYk5O+nmoSzSutSsTwF85zcHPQ9OrlFoZOYIjaqBAJIqIXjptyD5vThxGq52Xu/MaJzRkIk4Q==
+  dependencies:
+    side-channel "^1.0.4"
+
 query-string@^4.1.0:
   version "4.3.4"
   resolved "https://registry.npmmirror.com/query-string/-/query-string-4.3.4.tgz#bbb693b9ca915c232515b228b1a02b609043dbeb"
@@ -7134,6 +7163,15 @@ validate-npm-package-license@^3.0.1:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
 
+vant@^3.5.2:
+  version "3.5.2"
+  resolved "https://registry.npmmirror.com/vant/-/vant-3.5.2.tgz#58f45a442a7b04d8e229ee27ea61415d214504ed"
+  integrity sha512-RR2SEE/ZHH30Z7a9iLBxskvSzs8rwaU2vDhR7HtBjgXreADzGjU75XxV2ogwrtaj2YU1IaBYC8xXjn3VXRxREw==
+  dependencies:
+    "@vant/icons" "^1.8.0"
+    "@vant/popperjs" "^1.2.1"
+    "@vant/use" "^1.4.1"
+
 vary@~1.1.2:
   version "1.1.2"
   resolved "https://registry.npmmirror.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
@@ -7159,10 +7197,10 @@ vue-infinite-scroll@^2.0.2:
   resolved "https://registry.npmmirror.com/vue-infinite-scroll/-/vue-infinite-scroll-2.0.2.tgz#ca37a91fe92ee0ad3b74acf8682c00917144b711"
   integrity sha512-n+YghR059YmciANGJh9SsNWRi1YZEBVlODtmnb/12zI+4R72QZSWd+EuZ5mW6auEo/yaJXgxzwsuhvALVnm73A==
 
-vue-lazyload@^2.0.0-rc.2:
-  version "1.3.3"
-  resolved "https://registry.npmmirror.com/vue-lazyload/-/vue-lazyload-1.3.3.tgz#4df50a271bde9b74c3caf7a228d6e0af50d5682f"
-  integrity sha512-uHnq0FTEeNmqnbBC2aRKlmtd9LofMZ6Q3mWvgfLa+i9vhxU8fDK+nGs9c1iVT85axSua/AUnMttIq3xPaU9G3A==
+vue-lazyload@^1.3.4:
+  version "1.3.4"
+  resolved "https://registry.npmmirror.com/vue-lazyload/-/vue-lazyload-1.3.4.tgz#2988998f6bc1a2027268f5b0cffa7a7e30e6ccb4"
+  integrity sha512-K0frbPQJuvFHVpdl/ov5CqCR/CHWeLGs8E8V1d/09DIETqBjeGhC1fLMmwUy3Go2Yd/VX610AZ7Mdn4B54592Q==
 
 vue-loader@^13.3.0:
   version "13.7.3"
@@ -7236,10 +7274,8 @@ watchpack@^1.4.0:
   resolved "https://registry.npmmirror.com/watchpack/-/watchpack-1.7.5.tgz#1267e6c55e0b9b5be44c2023aed5437a2c26c453"
   integrity sha512-9P3MWk6SrKjHsGkLT2KHXdQ/9SNkyoJbabxnKOoJepsvJjJG8uYTR3yTPxPQvNDI3w4Nz1xnE0TLHK4RIVe/MQ==
   dependencies:
-    chokidar "^3.4.1"
     graceful-fs "^4.1.2"
     neo-async "^2.5.0"
-    watchpack-chokidar2 "^2.0.1"
   optionalDependencies:
     chokidar "^3.4.1"
     watchpack-chokidar2 "^2.0.1"
