@@ -1,7 +1,14 @@
 <template>
   <div>
+    <!-- start header -->
     <NavHeader />
+    <!-- end header  -->
+
+    <!-- start nav bread -->
     <NavBread />
+    <!-- end nav bread -->
+
+    <!-- price filter -->
     <div class="accessory-result-page accessory-page">
       <div class="container">
         <div class="filter-nav">
@@ -90,6 +97,7 @@ import './../assets/css/checkout.css'
 import NavHeader from '@/components/NavHeader'
 import NavFooter from '@/components/NavFooter'
 import NavBread from '../components/NavBread.vue'
+import { getGoodsList } from '../../api/goods'
 export default {
   name:"GoodsList",
   components: {
@@ -97,8 +105,33 @@ export default {
     NavFooter,
     NavBread
   },
+  data(){
+    return {
+      priceChecked:'all',
+      overLayFlag:false,
+      filterBy:false,
+      goodsList:[],
+      priceFilter:[{
+        startPrice:0,
+        endPrice:100
+      },
+      {
+        startPrice:100,
+        endPrice:200
+      },
+      {
+        startPrice:200,
+        endPrice:500
+      },{
+        startPrice:500,
+        endPrice:1000
+      }
+      ],
+    }
+  },
   mounted() {
-    console.log(this.$route.params)
+    this.getGoodsListData()
+    console.log(this.goodsList)
   },
   methods: {
     getGoodsListData() {
