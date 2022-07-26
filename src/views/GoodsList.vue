@@ -107,6 +107,7 @@ import NavHeader from '@/components/NavHeader'
 import NavFooter from '@/components/NavFooter'
 import NavBread from '../components/NavBread.vue'
 import { getGoodsList } from '../../api/goods'
+import { baseURL } from '../../api'
 export default {
   name:"GoodsList",
   components: {
@@ -172,6 +173,7 @@ export default {
           }
         } else {
           this.goodsList = goods;
+          this.busy = false;
         }
       })
     },
