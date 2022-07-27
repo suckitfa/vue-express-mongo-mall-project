@@ -115,6 +115,7 @@ export default {
   },
   data(){
     return {
+      // 控制加载动画
       loading:false,
       priceChecked:'all',
       busy:true,
