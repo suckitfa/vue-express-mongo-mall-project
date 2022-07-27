@@ -83,8 +83,8 @@
               </ul>
               <!-- 引入插件 -->
 
-              <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
-                加载中.....
+              <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10" class="loading">
+                <img src="../assets/loading-spinning-bubbles.svg" v-show="loading">
               </div>
             </div>
           </div>
@@ -92,9 +92,7 @@
       </div>
     </div>
     <!-- 遮罩层 -->
-    <div class="md-overlay" v-show="overLayFlag" @click="closeFilterPop">
-
-    </div>
+    <div class="md-overlay" v-show="overLayFlag" @click="closeFilterPop"></div>
     <NavFooter />
   </div>
 </template>
@@ -117,6 +115,7 @@ export default {
   },
   data(){
     return {
+      loading:false,
       priceChecked:'all',
       busy:true,
       overLayFlag:false,
@@ -144,14 +143,16 @@ export default {
     }
   },
   mounted() {
-    this.getGoodsListData()
+    this.getGoodsListData(true)
   },
   methods: {
     getGoodsListData(flag) {
+      this.loading = true;
       let param = {
         page:this.page,
         pageSize:this.pageSize,
-        sort:this.sortFlag === true ? 1 : -1
+        sort:this.sortFlag === true ? 1 : -1,
+        priceLevel:this.priceChecked
       }
       getGoodsList(param).then(res => {
         const resData = res.data;
@@ -160,6 +161,7 @@ export default {
         goods =  goods.map(item => {
           return {
             ...item,
+            id:item._id,
             productImage: baseURL+ item.productImage
           }
         });
@@ -197,13 +199,18 @@ export default {
     loadMore() {
       this.busy = true;
       setTimeout(() => {
-        for(let i = 0,j = 10; i < j; i++ ) {
           this.page ++;
-          this.getGoodsListData(true)
-        }
-        this.busy = false;
+          this.getGoodsListData(true);
+          this.busy = false;
       },500)
     }
   }
 }
 </script>
+<style scoped>
+ .loading {
+  display: flex;
+  margin:auto;
+  justify-content: center;
+ }
+</style>
