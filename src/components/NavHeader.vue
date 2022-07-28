@@ -17,7 +17,7 @@
             <div class="navbar-menu-container">
               <a href="/" class="navbar-link">我的账户</a>
               <span class="navbar-link" v-if="nickName" v-text="nickName"></span>
-              <a href="javascript:void(0)" class="navbar-link" @click="showLoginModal" >Login</a>
+              <a href="javascript:void(0)" class="navbar-link" @click="showLoginModal" v-if="loginModalFlag" >Login</a>
               <a href="javascript:void(0)" class="navbar-link">Logout</a>
               <div class="navbar-cart-container">
                 <span class="navbar-cart-count"></span>
