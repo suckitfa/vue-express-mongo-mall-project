@@ -17,7 +17,7 @@
             <div class="navbar-menu-container">
               <a href="/" class="navbar-link">我的账户</a>
               <span class="navbar-link" v-if="nickName" v-text="nickName"></span>
-              <a href="javascript:void(0)" class="navbar-link" @click="loginModalFlag=true;">Login</a>
+              <a href="javascript:void(0)" class="navbar-link" @click="showLoginModal" >Login</a>
               <a href="javascript:void(0)" class="navbar-link">Logout</a>
               <div class="navbar-cart-container">
                 <span class="navbar-cart-count"></span>
@@ -36,7 +36,7 @@
           <div class="md-modal-inner">
             <div class="md-top">
               <div class="md-title">登入</div>
-              <button class="md-close" @click="loginModalFlag=false">Close</button>
+              <button class="md-close" @click="closeLoginModal()">Close</button>
             </div>
             <div class="md-content">
               <div class="confirm-tips">
@@ -50,7 +50,8 @@
                   </li>
                   <li class="regi_form_input noMargin">
                     <i class="icon IconPwd"></i>
-                    <input type="password" tabindex="2"  name="password" v-model="userPwd" class="regi_login_input regi_login_input_left login-input-no input_text" placeholder="Password" @keyup.enter="login">
+                    <input type="password" tabindex="2"  name="password" v-model="userPwd" class="regi_login_input regi_login_input_left login-input-no input_text" placeholder="Password" 
+                    @keyup.enter="doLogin">
                   </li>
                 </ul>
               </div>
@@ -60,13 +61,13 @@
             </div>
           </div>
         </div>
-        <div class="md-overlay"  @click="loginModalFlag=false" v-if="loginModalFlag"></div>
+        <div class="md-overlay"  @click="closeLoginModal" v-if="loginModalFlag"></div>
     </div>
 </template>
 
 <script>
 import '../assets/css/login.css'
-import {login} from '../../api/user'
+import {login,logout} from '../../api/user'
 export default {
     name:"NavHeader",
     data() {
@@ -85,14 +86,14 @@ export default {
           this.errorTip = true;
           return;
         }
+        // 发起登入请求
         login({userName:this.userName,userPwd:this.userPwd})
         .then(response => {
           let res = response.data;
-          console.log(res)
           // 登入成功
           if (res.status === '0') {
             this.errorTip = false;
-            this.loginModalFlag = false;
+            this.closeLoginModal()
             this.nickName = res.result.userName;
           } else {
             this.errorTip = true;
@@ -101,8 +102,18 @@ export default {
         .catch(err =>{
           this.errorTip = true;
         })
+      },
+      doLogout() {
+        logout()
+        this.nickName = ""
+      },
+      showLoginModal() {
+        this.loginModalFlag = true;
+      },
+      closeLoginModal() {
+        this.loginModalFlag = false;
       }
-    }
+  },
 }
 </script>
 

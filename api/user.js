@@ -7,3 +7,10 @@ export function login({userName,userPwd}) {
         data:{userName,userPwd}
     })
 }
+
+export function logout() {
+    return myAxios({
+        url:"/users/logout",
+        method:"POST"
+    })
+}
