@@ -15,9 +15,9 @@
           </div>
           <div class="navbar-right-container" style="display: flex;">
             <div class="navbar-menu-container">
-              <!--<a href="/" class="navbar-link">我的账户</a>-->
-              <span class="navbar-link"></span>
-              <a href="javascript:void(0)" class="navbar-link">Login</a>
+              <a href="/" class="navbar-link">我的账户</a>
+              <span class="navbar-link" v-if="nickName" v-text="nickName"></span>
+              <a href="javascript:void(0)" class="navbar-link" @click="loginModalFlag=true;">Login</a>
               <a href="javascript:void(0)" class="navbar-link">Logout</a>
               <div class="navbar-cart-container">
                 <span class="navbar-cart-count"></span>
@@ -32,7 +32,7 @@
         </div>
       </header>
       <!-- 登入 -->
-       <div class="md-modal modal-msg md-modal-transition md-show" v-bind:class="{'md-show':loginModalFlag}">
+       <div class="md-modal modal-msg md-modal-transition" v-bind:class="{'md-show':loginModalFlag}">
           <div class="md-modal-inner">
             <div class="md-top">
               <div class="md-title">登入</div>
@@ -60,7 +60,7 @@
             </div>
           </div>
         </div>
-        <div class="md-overlay"  @click="loginModalFlag=false"></div>
+        <div class="md-overlay"  @click="loginModalFlag=false" v-if="loginModalFlag"></div>
     </div>
 </template>
 
@@ -75,10 +75,16 @@ export default {
         userPwd:"",
         errorTip:false,
         loginModalFlag:false,
+        nickName:""
       }
     },
     methods: {
       doLogin() {
+        // 校验用户名或者密码为非空
+        if (!this.userName || !this.userPwd) {
+          this.errorTip = true;
+          return;
+        }
         login({userName:this.userName,userPwd:this.userPwd})
         .then(response => {
           let res = response.data;
@@ -87,6 +93,7 @@ export default {
           if (res.status === '0') {
             this.errorTip = false;
             this.loginModalFlag = false;
+            this.nickName = res.result.userName;
           } else {
             this.errorTip = true;
           }
