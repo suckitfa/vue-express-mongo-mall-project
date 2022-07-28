@@ -17,8 +17,8 @@
             <div class="navbar-menu-container">
               <a href="/" class="navbar-link">我的账户</a>
               <span class="navbar-link" v-if="nickName" v-text="nickName"></span>
-              <a href="javascript:void(0)" class="navbar-link" @click="showLoginModal" v-if="loginModalFlag" >Login</a>
-              <a href="javascript:void(0)" class="navbar-link">Logout</a>
+              <a href="javascript:void(0)" class="navbar-link" @click="showLoginModal" v-if="!nickName" >Login</a>
+              <a href="javascript:void(0)" class="navbar-link" @click="doLogout">Logout</a>
               <div class="navbar-cart-container">
                 <span class="navbar-cart-count"></span>
                 <a class="navbar-link navbar-cart-link" href="/#/cart">
@@ -104,7 +104,14 @@ export default {
         })
       },
       doLogout() {
-        logout()
+        logout().then(response => {
+          let res = response.data;
+          if (res.status === 0) {
+            this.nickName = ""
+          } else {
+            alert('推出失败')
+          }
+        })
         this.nickName = ""
       },
       showLoginModal() {
