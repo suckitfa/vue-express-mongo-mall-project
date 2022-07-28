@@ -31,11 +31,73 @@
           </div>
         </div>
       </header>
+      <!-- 登入 -->
+       <div class="md-modal modal-msg md-modal-transition md-show" v-bind:class="{'md-show':loginModalFlag}">
+          <div class="md-modal-inner">
+            <div class="md-top">
+              <div class="md-title">登入</div>
+              <button class="md-close" @click="loginModalFlag=false">Close</button>
+            </div>
+            <div class="md-content">
+              <div class="confirm-tips">
+                <div class="error-wrap">
+                  <span class="error error-show" v-show="errorTip">用户名或者密码错误</span>
+                </div>
+                <ul>
+                  <li class="regi_form_input">
+                    <i class="icon IconPeople"></i>
+                    <input type="text" tabindex="1" name="loginname" v-model="userName" class="regi_login_input regi_login_input_left" placeholder="User Name" data-type="loginname">
+                  </li>
+                  <li class="regi_form_input noMargin">
+                    <i class="icon IconPwd"></i>
+                    <input type="password" tabindex="2"  name="password" v-model="userPwd" class="regi_login_input regi_login_input_left login-input-no input_text" placeholder="Password" @keyup.enter="login">
+                  </li>
+                </ul>
+              </div>
+              <div class="login-wrap">
+                <a href="javascript:;" class="btn-login" @click="doLogin">登  录</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="md-overlay"  @click="loginModalFlag=false"></div>
     </div>
 </template>
 
 <script>
+import '../assets/css/login.css'
+import {login} from '../../api/user'
 export default {
-    name:"NavHeader"
+    name:"NavHeader",
+    data() {
+      return {
+        userName:"",
+        userPwd:"",
+        errorTip:false,
+        loginModalFlag:false,
+      }
+    },
+    methods: {
+      doLogin() {
+        login({userName:this.userName,userPwd:this.userPwd})
+        .then(response => {
+          let res = response.data;
+          console.log(res)
+          // 登入成功
+          if (res.status === '0') {
+            this.errorTip = false;
+            this.loginModalFlag = false;
+          } else {
+            this.errorTip = true;
+          }
+        })
+        .catch(err =>{
+          this.errorTip = true;
+        })
+      }
+    }
 }
 </script>
+
+<style scoped>
+</style>

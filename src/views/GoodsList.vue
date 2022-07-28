@@ -68,7 +68,7 @@
           <div class="accessory-list-wrap">
             <div class="accessory-list col-4">
               <ul>
-                <li v-for="product in goodsList" :key="product.productId">
+                <li v-for="product in goodsList" :key="product.id">
                   <div class="pic">
                     <a href="#"><img v-lazy="product.productImage" alt="" /></a>
                   </div>
@@ -76,7 +76,7 @@
                     <div class="name">{{ product.productName }}</div>
                     <div class="price">{{ product.salePrice }}</div>
                     <div class="btn-area">
-                      <a href="javascript:;" class="btn btn--m">加入购物车</a>
+                      <a href="javascript:;" class="btn btn--m" @click="addToCart(product.id)">加入购物车</a>
                     </div>
                   </div>
                 </li>
@@ -104,7 +104,7 @@ import './../assets/css/checkout.css'
 import NavHeader from '@/components/NavHeader'
 import NavFooter from '@/components/NavFooter'
 import NavBread from '../components/NavBread.vue'
-import { getGoodsList } from '../../api/goods'
+import { getGoodsList,addToCart } from '../../api/goods'
 import { baseURL } from '../../api'
 export default {
   name:"GoodsList",
@@ -147,6 +147,15 @@ export default {
     this.getGoodsListData(true)
   },
   methods: {
+    addCart(productId) {
+      addToCart(productId).then(res => {
+        console.log(res);
+      },err => {
+        console.log(err)
+      }
+      )
+      console.log('加入购物车 = ',productId)
+    },
     getGoodsListData(flag) {
       this.loading = true;
       let param = {
@@ -158,6 +167,7 @@ export default {
       getGoodsList(param).then(res => {
         const resData = res.data;
         let goods = resData.result.list;
+        console.log(goods);
         // 处理图片的路径
         goods =  goods.map(item => {
           return {
