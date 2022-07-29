@@ -101,7 +101,7 @@
     <Modal :mdShow="mdShow" @closeModalEvent="closeModal">
       <p slot="message">请先登入，否则无法加入到购物车中</p>
         <div slot="btn-group">
-          <a href="#" class="btn btn--m">关闭</a>
+          <a href="#" class="btn btn--m"  @click="closeModal">关闭</a>
         </div>
     </Modal>
     <!-- 导航底部 -->

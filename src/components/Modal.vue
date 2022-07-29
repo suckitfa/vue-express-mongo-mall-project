@@ -1,11 +1,11 @@
  <template>
  <!-- 使用事件代理 -->
- <div @click="closeModal">
+ <div>
     <div class="md-modal modal-msg md-modal-transition" v-bind:class="{'md-show':mdShow}">
     <div class="md-modal-inner">
         <div class="md-top">
             <div class="md-title">提示</div>
-            <button class="md-close">Close</button>
+            <button class="md-close"  @click="closeModal">Close</button>
         </div>
         <div class="md-content">
             <div class="confirm-tips">
@@ -17,7 +17,7 @@
         </div>
     </div>
 </div> 
-<div class="md-overlay" v-show="mdShow" ></div>
+<div class="md-overlay" v-show="mdShow"  @click="closeModal"></div>
  </div>
  </template>
 
@@ -30,7 +30,6 @@
     },
     methods: {
         closeModal(e) {
-            console.log(e)
             this.$emit('closeModalEvent')
         }
     }
