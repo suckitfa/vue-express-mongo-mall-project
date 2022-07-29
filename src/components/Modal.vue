@@ -1,5 +1,6 @@
  <template>
- <div>
+ <!-- 使用事件代理 -->
+ <div @click="closeModal">
     <div class="md-modal modal-msg md-modal-transition" v-bind:class="{'md-show':mdShow}">
     <div class="md-modal-inner">
         <div class="md-top">
