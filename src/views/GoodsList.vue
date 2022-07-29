@@ -76,13 +76,12 @@
                     <div class="name">{{ product.productName }}</div>
                     <div class="price">{{ product.salePrice }}</div>
                     <div class="btn-area">
-                      <a href="javascript:;" class="btn btn--m" @click="addToCart(product.id)">加入购物车</a>
+                      <a  class="btn btn--m" @click="addCart">加入购物车</a>
                     </div>
                   </div>
                 </li>
               </ul>
               <!-- 引入插件 -->
-
               <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10" class="loading">
                 <img src="../assets/loading-spinning-bubbles.svg" v-show="loading">
               </div>
@@ -92,7 +91,20 @@
       </div>
     </div>
     <!-- 遮罩层 -->
-    <div class="md-overlay" v-show="overLayFlag" @click="closeFilterPop"></div>
+    <div 
+      class="md-overlay" 
+      v-show="overLayFlag" 
+      @click="closeFilterPop"
+    ></div>
+
+    <!-- 模态框组件 -->
+    <Modal :mdShow="mdShow" @closeModalEvent="closeModal">
+      <p slot="message">请先登入，否则无法加入到购物车中</p>
+        <div slot="btn-group">
+          <a href="#" class="btn btn--m">关闭</a>
+        </div>
+    </Modal>
+    <!-- 导航底部 -->
     <NavFooter />
   </div>
 </template>
@@ -104,6 +116,7 @@ import './../assets/css/checkout.css'
 import NavHeader from '@/components/NavHeader'
 import NavFooter from '@/components/NavFooter'
 import NavBread from '../components/NavBread.vue'
+import Modal from '../components/Modal.vue'
 import { getGoodsList,addToCart } from '../../api/goods'
 import { baseURL } from '../../api'
 export default {
@@ -111,10 +124,12 @@ export default {
   components: {
     NavHeader,
     NavFooter,
-    NavBread
+    NavBread,
+    Modal
   },
   data(){
     return {
+      mdShow:false,
       // 控制加载动画
       loading:false,
       priceChecked:'all',
@@ -147,14 +162,14 @@ export default {
     this.getGoodsListData(true)
   },
   methods: {
+    closeModal() {
+      this.mdShow = false;
+    },
+    showModal() {
+      this.mdShow = true;
+    },
     addCart(productId) {
-      addToCart(productId).then(res => {
-        console.log(res);
-      },err => {
-        console.log(err)
-      }
-      )
-      console.log('加入购物车 = ',productId)
+      this.showModal()
     },
     getGoodsListData(flag) {
       this.loading = true;
