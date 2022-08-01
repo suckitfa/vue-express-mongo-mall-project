@@ -1,8 +1,9 @@
 <template>
   <div>
     <nav-header></nav-header>
+    <!-- 面包屑组件 -->
     <nav-bread>
-      <span>My Cart</span>
+      <span>Cart</span>
     </nav-bread>
     <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1"
          xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -136,6 +137,7 @@
         <a class="btn btn--m btn--red" href="javascript:;" @click="modalConfirm = false">关闭</a>
       </div>
     </Modal>
+    <!-- 底部 -->
     <nav-footer></nav-footer>
   </div>
 </template>
