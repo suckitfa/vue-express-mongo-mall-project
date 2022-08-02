@@ -171,7 +171,7 @@
     import NavFooter from './../components/NavFooter'
     import NavBread from './../components/NavBread'
     import Modal from './../components/Modal'
-    import { getCartList } from '../../api/user'
+    import { getCartList,doDelCart } from '../../api/user'
     export default{
         data(){
             return{
@@ -201,20 +201,27 @@
         },
         methods:{
             init(){
-              console.log('发起请求..........')
               getCartList().then(res => {
                 console.log(res.data.result);
                 this.cartList = res.data.result;
-              console.log('发起请求..........')
               }).catch(e => {
-                console.log('。。。。出错了')
+                alert(e.message)
               })
             },
             closeModal(){
+              this.modalConfirm = false;
             },
             delCartConfirm(item){
+              this.modalConfirm = true;
             },
             delCart(){
+              doDelCart(this.productId).then(response => {
+                let res = response.res;
+                if (res.status === '0') {
+                  this.closeModal();
+                  this.init();
+                }
+              })
             },
             editCart(flag,item){
             },

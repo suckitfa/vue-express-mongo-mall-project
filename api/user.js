@@ -21,3 +21,11 @@ export function getCartList() {
         method:'GET'
     })
 }
+
+export function doDelCart(productId) {
+    return myAxios({
+        url:"/users/delCart",
+        method:"POST",
+        data: {productId}
+    })
+}
