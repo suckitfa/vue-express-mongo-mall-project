@@ -29,3 +29,12 @@ export function doDelCart(productId) {
         data: {productId}
     })
 }
+
+// 
+export function doToggleCheckAll(checkAll) {
+    return myAxios({
+        url:"/users/editCheckAll",
+        method:"POST",
+        data:{checkAll}
+    });
+}

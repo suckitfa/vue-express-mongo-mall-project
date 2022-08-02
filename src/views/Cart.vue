@@ -121,7 +121,7 @@
             </div>
             <div class="cart-foot-r">
               <div class="item-total">
-                Item total: <span class="total-price">{{totalPrice}}</span>
+                Item total: <span class="total-price">{{totalPrice | currency('$')}}</span>
               </div>
               <div class="btn-wrap">
                 <a class="btn btn--red" v-bind:class="{'btn--dis':checkedCount==0}" @click="checkOut">Checkout</a>
@@ -171,7 +171,8 @@
     import NavFooter from './../components/NavFooter'
     import NavBread from './../components/NavBread'
     import Modal from './../components/Modal'
-    import { getCartList,doDelCart } from '../../api/user'
+    import { getCartList,doDelCart, doToggleCheckAll } from '../../api/user'
+    import {currency} from '../../utils/currency'
     export default{
         data(){
             return{
@@ -183,14 +184,32 @@
         mounted(){
           this.init()
         },
+        // 
         filters:{
+          currency:function(val) {
+            return 'val';
+          }
         },
+        // 计算属性 实现双向绑定 实时计算
         computed:{
           checkAllFlag(){
+            return this.checkedCount === this.cartList.length;
           },
           checkedCount(){
+            var i = 0;
+            this.cartList.forEach(item => {
+              if (item.checked === '1') i++;
+            });
+            return i;
           },
           totalPrice(){
+            let sum = 0;
+            this.cartList.forEach(item => {
+              if (item.checked === '1') {
+                sum += parseFloat(item.salePrice) * parseInt(item.produceNum);
+              }
+            });
+            return sum;
           }
         },
         components:{
@@ -226,7 +245,18 @@
             editCart(flag,item){
             },
             toggleCheckAll(){
-
+              let flag = !this.checkAllFlag;
+              this.cartList.forEach( (item) => {
+                item.checked = this.flag ? '1' : '0';
+              });
+              doToggleCheckAll(flag)
+              .then(response => {
+                let res = response.res;
+                console.log(res)
+                if (res.status === '0') {
+                  console.log('update suc');
+                }
+              })
             },
             checkOut(){
 
