@@ -59,6 +59,7 @@
                 <li>编辑</li>
               </ul>
             </div>
+            <!-- 商品列表 -->
             <ul class="cart-item-list">
               <li v-for="item in cartList" :key="item.id">
                 <div class="cart-tab-1">
@@ -170,6 +171,7 @@
     import NavFooter from './../components/NavFooter'
     import NavBread from './../components/NavBread'
     import Modal from './../components/Modal'
+    import { getCartList } from '../../api/user'
     export default{
         data(){
             return{
@@ -179,6 +181,7 @@
             }
         },
         mounted(){
+          this.init()
         },
         filters:{
         },
@@ -198,6 +201,14 @@
         },
         methods:{
             init(){
+              console.log('发起请求..........')
+              getCartList().then(res => {
+                console.log(res.data.result);
+                this.cartList = res.data.result;
+              console.log('发起请求..........')
+              }).catch(e => {
+                console.log('。。。。出错了')
+              })
             },
             closeModal(){
             },

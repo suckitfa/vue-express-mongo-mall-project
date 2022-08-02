@@ -1,13 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
 import GoodsList from '@/views/GoodsList'
 import Title from '@/views/Title'
 import Image from '@/views/Image'
 import Cart from '@/views/Cart'
 Vue.use(Router)
-
-export default new Router({
+const router =  new Router({
   routes: [
     {
       path: '/',
@@ -21,22 +19,11 @@ export default new Router({
       path:"/cart",
       name:"cart",
       component:Cart
-     },
-    //  {
-    //   path:"/goods",
-    //   name:"GoodsList",
-    //   component:GoodsList,
-      // 嵌套路由
-      // children: [{
-      //   // 这里不要加 / 这样会变成一级路由
-      //   path:"title",
-      //   name:"title",
-      //   component:Title
-      // },{
-      //   path:"img",
-      //   name:"image",
-      //   component:Image
-      // }]
-    // },
+     }
   ]
 })
+router.beforeEach((to,from,next) => {
+  console.log(to.fullPath)
+  next()
+})
+export default router;

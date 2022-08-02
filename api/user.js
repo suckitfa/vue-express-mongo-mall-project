@@ -14,3 +14,10 @@ export function logout() {
         method:"POST"
     })
 }
+
+export function getCartList() {
+    return myAxios({
+        url:"/users/cartList",
+        method:'GET'
+    })
+}
