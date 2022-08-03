@@ -184,7 +184,7 @@
                     <p>
                       Once shipped，Order should arrive in the destination in
                       1-7 business days
-                    </p>
+                    </p> 
                   </div>
                 </li>
               </ul>
