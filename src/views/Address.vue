@@ -227,7 +227,7 @@ import NavHeader from "./../components/NavHeader";
 import NavFooter from "./../components/NavFooter";
 import NavBread from "./../components/NavBread";
 import Modal from "./../components/Modal";
-import { doGetAddressList } from "../../api/user";
+import { doGetAddressList, doSetDefaultAddress } from "../../api/user";
 export default {
   data() {
     return {
@@ -243,6 +243,7 @@ export default {
     this.init();
   },
   computed: {
+    // 计算属性，只取3条数据
     addressListFilter() {
       return this.addressList.slice(0, this.limit);
     },
@@ -270,7 +271,15 @@ export default {
         this.limit = 3;
       }
     },
-    setDefault(addressId) {},
+    setDefault(addressId) {
+        doSetDefaultAddress(addressId)
+        .then(response => {
+            this.init();
+        })
+        .catch(err => {
+            alert(err.message);
+        });
+    },
     closeModal() {
       this.isMdShow = false;
     },

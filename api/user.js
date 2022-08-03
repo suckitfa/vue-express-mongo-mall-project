@@ -39,10 +39,19 @@ export function doToggleCheckAll(checkAll) {
     });
 }
 
-
+// 获取用户的地址列表
 export function doGetAddressList() {
     return myAxios({
         url:"/users/addressList",
         method:"GET",
     })
+}
+
+// 设置默认地址
+export function doSetDefaultAddress(addressId) {
+    return myAxios({
+        url:"/users/setDefault",
+        method:"POST",
+        data: {addressId}
+    });
 }
