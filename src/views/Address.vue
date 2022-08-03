@@ -203,16 +203,12 @@
         </div>
       </div>
     </div>
+    <!-- 删除地址模态框 -->
     <modal :mdShow="isMdShow" @close="closeModal">
       <p slot="message">您是否确认要删除此地址?</p>
       <div slot="btnGroup">
         <a class="btn btn--m" href="javascript:;" @click="delAddress">确认</a>
-        <a
-          class="btn btn--m btn--red"
-          href="javascript:;"
-          @click="isMdShow = false"
-          >取消</a
-        >
+        <a class="btn btn--m btn--red" href="javascript:;" @click="isMdShow = false">取消</a>
       </div>
     </modal>
 
