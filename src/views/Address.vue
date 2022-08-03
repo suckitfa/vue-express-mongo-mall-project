@@ -206,7 +206,7 @@
     <!-- 删除地址模态框 -->
     <modal :mdShow="isMdShow" @close="closeModal">
       <p slot="message">您是否确认要删除此地址?</p>
-      <div slot="btnGroup">
+      <div slot="btn-group">
         <a class="btn btn--m" href="javascript:;" @click="delAddress">确认</a>
         <a class="btn btn--m btn--red" href="javascript:;" @click="isMdShow = false">取消</a>
       </div>
@@ -223,7 +223,7 @@ import NavHeader from "./../components/NavHeader";
 import NavFooter from "./../components/NavFooter";
 import NavBread from "./../components/NavBread";
 import Modal from "./../components/Modal";
-import { doGetAddressList, doSetDefaultAddress } from "../../api/user";
+import { doGetAddressList, doSetDefaultAddress,doDelAddress } from "../../api/user";
 export default {
   data() {
     return {
@@ -283,7 +283,18 @@ export default {
       this.isMdShow = true;
       this.addressId = addressId;
     },
-    delAddress() {},
+    delAddress() {
+        doDelAddress(this.addressId)
+        .then(response => {
+            let res = response.data;
+            console.log(res);
+            this.init();
+            this.closeModal();
+        })
+        .catch(err => {
+            alert(err);
+        })
+    },  
   },
 };
 </script>

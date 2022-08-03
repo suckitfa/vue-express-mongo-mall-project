@@ -55,3 +55,12 @@ export function doSetDefaultAddress(addressId) {
         data: {addressId}
     });
 }
+
+// 删除地址
+export function doDelAddress(addressId) {
+    return myAxios({
+        url:"/users/delAddress",
+        method:"POST",
+        data:{addressId}
+    })
+}
