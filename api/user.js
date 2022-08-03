@@ -38,3 +38,11 @@ export function doToggleCheckAll(checkAll) {
         data:{checkAll}
     });
 }
+
+
+export function doGetAddressList() {
+    return myAxios({
+        url:"/users/addressList",
+        method:"GET",
+    })
+}

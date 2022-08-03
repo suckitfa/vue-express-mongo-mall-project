@@ -227,6 +227,7 @@ import NavHeader from "./../components/NavHeader";
 import NavFooter from "./../components/NavFooter";
 import NavBread from "./../components/NavBread";
 import Modal from "./../components/Modal";
+import { doGetAddressList } from "../../api/user";
 export default {
   data() {
     return {
@@ -253,7 +254,15 @@ export default {
     Modal,
   },
   methods: {
-    init() {},
+    init() {
+        doGetAddressList().then(response => {
+            let res = response.data;
+            console.log(res.result)
+            this.addressList = res.result;
+        }).catch(err => {
+            alert(err.message);
+        })
+    },
     expand() {
       if (this.limit == 3) {
         this.limit = this.addressList.length;
