@@ -259,7 +259,12 @@
               })
             },
             checkOut(){
-
+              if (this.checkedCount > 0) {
+                // 跳转到结算页面
+                this.$router.push({
+                  path:"/address"
+                })
+              }
             }
         }
     }
