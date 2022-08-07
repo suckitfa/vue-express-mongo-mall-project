@@ -4,6 +4,7 @@ import GoodsList from '@/views/GoodsList'
 import Cart from '@/views/Cart'
 import Address from '@/views/Address'
 import OrderConfirm from '@/views/OrderConfirm'
+import OrderSuccess from '@/views/OrderSuccess'
 Vue.use(Router)
 const router =  new Router({
   routes: [
@@ -26,6 +27,11 @@ const router =  new Router({
       path:"/orderConfirm",
       name:"orderConfirm",
       component:OrderConfirm
+     },
+     {
+      path:"/orderSuccess",
+      name:"orderSuccess",
+      component:OrderSuccess
      }
   ]
 })
