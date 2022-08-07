@@ -73,3 +73,12 @@ export function doPayMent({addressId,orderTotal}){
         data: {addressId,orderTotal}
     });
 }
+
+// 获取订单详情
+export function doGetOrderDetail(orderId) {
+    return myAxios({
+        url:"/users/orderDetail",
+        method:"GET",
+        params:{orderId}
+    })
+}

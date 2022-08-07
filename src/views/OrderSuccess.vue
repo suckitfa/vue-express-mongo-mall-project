@@ -42,6 +42,7 @@
     import NavFooter from './../components/NavFooter'
     import NavBread from './../components/NavBread'
     import {currency} from '../../utils/currency'
+    import { doGetOrderDetail } from '../../api/user'
     import axios from 'axios'
     export default{
         data(){
@@ -64,11 +65,8 @@
             if(!orderId){
               return;
             }
-            axios.get("/users/orderDetail",{
-                params:{
-                  orderId:orderId
-                }
-            }).then((response)=>{
+            doGetOrderDetail(orderId)
+            .then((response)=>{
                 let res = response.data;
                 if(res.status=='0'){
                     this.orderId = orderId;
