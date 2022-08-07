@@ -66,7 +66,7 @@ export function doDelAddress(addressId) {
 }
 
 // 生成订单
-export function doPayMent(addressId,orderTotal){
+export function doPayMent({addressId,orderTotal}){
     return myAxios({
         url:"/users/payMent",
         method:"POST",

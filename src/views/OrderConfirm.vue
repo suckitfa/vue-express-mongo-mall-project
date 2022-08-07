@@ -208,10 +208,17 @@ export default {
             })
     },
     payMent() {
-      doPayMent()
+      // 从路由中获取参数addressId
+      const addressId = this.$route.query.addressId;
+      doPayMent({addressId,orderTotal:this.orderTotal})
       .then(response => {
         const res = response.data;
-        console.log(res)
+        if (res.status === '0') {
+          // 成功下单，跳转到成功页面
+          this.$router.push({
+            path:"/orderSuccess?orderId="+res.result.orderId
+          })
+        }
       })
       .catch(err => {
         alert(err)
