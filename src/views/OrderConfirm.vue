@@ -166,7 +166,7 @@ import NavHeader from "../components/NavHeader";
 import NavFooter from "../components/NavFooter";
 import NavBread from "../components/NavBread";
 import { currency } from "../../utils/currency";
-import { getCartList } from "../../api/user";
+import { getCartList,doPayMent } from "../../api/user";
 export default {
   data() {
     return {
@@ -208,7 +208,15 @@ export default {
             })
     },
     payMent() {
-      
+      doPayMent()
+      .then(response => {
+        const res = response.data;
+        console.log(res)
+      })
+      .catch(err => {
+        alert(err)
+        console.log(err)
+      })
     },
   },
 };

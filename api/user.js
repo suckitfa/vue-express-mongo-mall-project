@@ -64,3 +64,12 @@ export function doDelAddress(addressId) {
         data:{addressId}
     })
 }
+
+// 生成订单
+export function doPayMent(addressId,orderTotal){
+    return myAxios({
+        url:"/users/payMent",
+        method:"POST",
+        data: {addressId,orderTotal}
+    });
+}
