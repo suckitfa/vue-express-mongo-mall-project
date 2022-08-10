@@ -72,8 +72,8 @@ export default {
     name:"NavHeader",
     data() {
       return {
-        userName:"",
-        userPwd:"",
+        userName:"tom",
+        userPwd:"123456",
         errorTip:false,
         loginModalFlag:false,
       }
@@ -88,6 +88,7 @@ export default {
         }
     },
     mounted() {
+      //  this.showLoginModal()
       this.doLogin()
     },
     methods: {
@@ -102,6 +103,7 @@ export default {
           })
       },
       doLogin() {
+        console.log(this.userName,this.userPwd)
         // 校验用户名或者密码为非空
         if (!this.userName || !this.userPwd) {
           this.errorTip = true;
