@@ -82,3 +82,10 @@ export function doGetOrderDetail(orderId) {
         params:{orderId}
     })
 }
+
+export function doGetCartCount() {
+    return myAxios({
+        url:"/users/getCartCount",
+        method:"GET",
+    })
+}

@@ -67,7 +67,7 @@
 
 <script>
 import '../assets/css/login.css'
-import {login,logout} from '../../api/user'
+import {login,logout,doGetCartCount} from '../../api/user'
 export default {
     name:"NavHeader",
     data() {
@@ -76,10 +76,33 @@ export default {
         userPwd:"",
         errorTip:false,
         loginModalFlag:false,
-        nickName:""
       }
     },
+    // 结合vuex computed使用全部
+    computed: {
+        nickName() {
+          return this.$store.state.nickName;
+        },
+        cartCount() {
+          return this.$store.state.cartCount;
+        }
+    },
+    mounted() {
+      console.log(this)
+      console.log(this.store)
+      this.doLogin()
+    },
     methods: {
+      getCartCount() {
+        doGetCartCount()
+          .then(response => {
+            const res = response.data;
+            this.$store.commit('updateCartCount',res.cartCount)
+          })
+          .catch(err => {
+
+          })
+      },
       doLogin() {
         // 校验用户名或者密码为非空
         if (!this.userName || !this.userPwd) {
@@ -94,7 +117,11 @@ export default {
           if (res.status === '0') {
             this.errorTip = false;
             this.closeLoginModal()
-            this.nickName = res.result.userName;
+            const currentNickName = res.result.userName;
+            // 提交到vuex中
+            this.$store.commit('updateUserInfo',currentNickName)
+            // 登入成功后查询购物车商品数量
+            this.getCartCount();
           } else {
             this.errorTip = true;
           }
@@ -108,6 +135,7 @@ export default {
           let res = response.data;
           if (res.status === 0) {
             this.nickName = ""
+            this.$store.commit('updateUserInfo',"");
           } else {
             alert('推出失败')
           }
