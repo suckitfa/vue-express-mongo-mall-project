@@ -204,7 +204,6 @@ export default {
       getGoodsList(param).then(res => {
         const resData = res.data;
         let goods = resData.result.list;
-        console.log(goods);
         // 处理图片的路径
         goods =  goods.map(item => {
           return {

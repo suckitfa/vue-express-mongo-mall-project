@@ -88,7 +88,6 @@ export default {
         }
     },
     mounted() {
-      console.log(this.store)
       this.doLogin()
     },
     methods: {
@@ -99,7 +98,7 @@ export default {
             this.$store.commit('updateCartCount',res.cartCount)
           })
           .catch(err => {
-
+            alert(err.message)
           })
       },
       doLogin() {
@@ -138,8 +137,7 @@ export default {
           } else {
             alert('推出失败')
           }
-        })
-        this.nickName = ""
+        });
       },
       showLoginModal() {
         this.loginModalFlag = true;
